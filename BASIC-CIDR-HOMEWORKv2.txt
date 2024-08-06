@@ -1,0 +1,511 @@
+
+task1: stuffs to install:
+
+nmap:
+https://nmap.org/book/inst-windows.html
+
+wireshark:
+
+https://www.wireshark.org/download.html
+
+Network Scanning Bulacan state University:
+
+step1: ping www.bulsu.edu.ph
+
+C:\>ping www.bulsu.edu.ph
+
+Pinging bulsu.edu.ph [110.34.251.12] with 32 bytes of data:
+Reply from 110.34.251.12: bytes=32 time=153ms TTL=118
+
+
+step2: Obtain all the Valid IP address for scanning:
+
+C:\>nmap -sP 110.34.251.0/24
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-08-20 18:04 China Standard Time
+Nmap scan report for 110.34.251.0.STATIC.KRYPT.COM (110.34.251.0)
+Host is up (0.0080s latency).
+Nmap scan report for 110.34.251.1.STATIC.KRYPT.COM (110.34.251.1)
+Host is up (0.16s latency).
+Nmap scan report for tflogisticsph.wsiph2.com (110.34.251.2)
+.
+.
+.
+Nmap scan report for 110.34.251.253.STATIC.KRYPT.COM (110.34.251.253)
+Host is up (0.0030s latency).
+Nmap scan report for 110.34.251.254.STATIC.KRYPT.COM (110.34.251.254)
+Host is up (0.0030s latency).
+Nmap scan report for 110.34.251.255.STATIC.KRYPT.COM (110.34.251.255)
+Host is up (0.0050s latency).
+Nmap done: 256 IP addresses (256 hosts up) scanned in 4.70 seconds
+
+step3: SCAN THE FIRST 25 IP ADDRESS:
+
+nmap 110.34.251.1-20
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-08-20 18:31 China Standard Time
+Nmap scan report for 110.34.251.1.STATIC.KRYPT.COM (110.34.251.1)
+Host is up (0.0029s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for tflogisticsph.wsiph2.com (110.34.251.2)
+Host is up (0.16s latency).
+Not shown: 981 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+22/tcp   open     ssh
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+3306/tcp open     mysql
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+
+Nmap scan report for tflogisticsph.wsiph2.com (110.34.251.3)
+Host is up (0.16s latency).
+Not shown: 981 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+22/tcp   open     ssh
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+3306/tcp open     mysql
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+
+Nmap scan report for polytradecomph.wsiph2.com (110.34.251.4)
+Host is up (0.16s latency).
+Not shown: 982 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+22/tcp   open     ssh
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+
+Nmap scan report for polytradecomph.wsiph2.com (110.34.251.5)
+Host is up (0.15s latency).
+Not shown: 982 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+22/tcp   open     ssh
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+
+Nmap scan report for wsicpanel.wsiph2.com (110.34.251.6)
+Host is up (0.13s latency).
+Not shown: 944 filtered tcp ports (no-response), 39 filtered tcp ports (port-unreach)
+PORT     STATE  SERVICE
+20/tcp   closed ftp-data
+21/tcp   open   ftp
+22/tcp   open   ssh
+53/tcp   open   domain
+80/tcp   open   http
+110/tcp  open   pop3
+113/tcp  closed ident
+143/tcp  open   imap
+443/tcp  open   https
+465/tcp  open   smtps
+587/tcp  open   submission
+993/tcp  open   imaps
+995/tcp  open   pop3s
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for wsicpanel.wsiph2.com (110.34.251.7)
+Host is up (0.14s latency).
+Not shown: 921 filtered tcp ports (no-response), 62 filtered tcp ports (port-unreach)
+PORT     STATE  SERVICE
+20/tcp   closed ftp-data
+21/tcp   open   ftp
+22/tcp   open   ssh
+53/tcp   open   domain
+80/tcp   open   http
+110/tcp  open   pop3
+113/tcp  closed ident
+143/tcp  open   imap
+443/tcp  open   https
+465/tcp  open   smtps
+587/tcp  open   submission
+993/tcp  open   imaps
+995/tcp  open   pop3s
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for cnergygroup.ph (110.34.251.8)
+Host is up (0.0034s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for cnergygroup.ph (110.34.251.9)
+Host is up (0.16s latency).
+Not shown: 980 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+22/tcp   open     ssh
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+111/tcp  open     rpcbind
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+3306/tcp open     mysql
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+
+Nmap scan report for cyberworld.wsiph2.com (110.34.251.10)
+Host is up (0.0028s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for ercgovph.wsiph2.com (110.34.251.11)
+Host is up (0.0027s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for bulsueduph.wsiph2.com (110.34.251.12)
+Host is up (0.16s latency).
+Not shown: 980 closed tcp ports (reset)
+PORT      STATE    SERVICE
+21/tcp    open     ftp
+25/tcp    filtered smtp
+53/tcp    open     domain
+80/tcp    open     http
+135/tcp   open     msrpc
+139/tcp   filtered netbios-ssn
+443/tcp   open     https
+445/tcp   filtered microsoft-ds
+2000/tcp  open     cisco-sccp
+3306/tcp  open     mysql
+3389/tcp  open     ms-wbt-server
+5060/tcp  open     sip
+8008/tcp  open     http
+8010/tcp  open     xmpp
+49152/tcp open     unknown
+49153/tcp open     unknown
+49154/tcp open     unknown
+49155/tcp open     unknown
+49156/tcp open     unknown
+49159/tcp open     unknown
+
+Nmap scan report for bulsueduph.wsiph2.com (110.34.251.13)
+Host is up (0.15s latency).
+Not shown: 980 closed tcp ports (reset)
+PORT      STATE    SERVICE
+21/tcp    open     ftp
+25/tcp    filtered smtp
+53/tcp    open     domain
+80/tcp    open     http
+135/tcp   open     msrpc
+139/tcp   filtered netbios-ssn
+443/tcp   open     https
+445/tcp   filtered microsoft-ds
+2000/tcp  open     cisco-sccp
+3306/tcp  open     mysql
+3389/tcp  open     ms-wbt-server
+5060/tcp  open     sip
+8008/tcp  open     http
+8010/tcp  open     xmpp
+49152/tcp open     unknown
+49153/tcp open     unknown
+49154/tcp open     unknown
+49155/tcp open     unknown
+49156/tcp open     unknown
+49159/tcp open     unknown
+
+Nmap scan report for bulsueduph.wsiph2.com (110.34.251.14)
+Host is up (0.16s latency).
+Not shown: 980 closed tcp ports (reset)
+PORT      STATE    SERVICE
+21/tcp    open     ftp
+25/tcp    filtered smtp
+53/tcp    open     domain
+80/tcp    open     http
+135/tcp   open     msrpc
+139/tcp   filtered netbios-ssn
+443/tcp   open     https
+445/tcp   filtered microsoft-ds
+2000/tcp  open     cisco-sccp
+3306/tcp  open     mysql
+3389/tcp  open     ms-wbt-server
+5060/tcp  open     sip
+8008/tcp  open     http
+8010/tcp  open     xmpp
+49152/tcp open     unknown
+49153/tcp open     unknown
+49154/tcp open     unknown
+49155/tcp open     unknown
+49156/tcp open     unknown
+49159/tcp open     unknown
+
+Nmap scan report for ercgovph.wsiph2.com (110.34.251.15)
+Host is up (0.0029s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 110.34.251.16.STATIC.KRYPT.COM (110.34.251.16)
+Host is up (0.15s latency).
+Not shown: 980 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+22/tcp   open     ssh
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+111/tcp  open     rpcbind
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+3306/tcp open     mysql
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+
+Nmap scan report for 110.34.251.17.STATIC.KRYPT.COM (110.34.251.17)
+Host is up (0.15s latency).
+Not shown: 980 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+22/tcp   open     ssh
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+111/tcp  open     rpcbind
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+3306/tcp open     mysql
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+
+Nmap scan report for spoccmincomph.wsiph2.com (110.34.251.18)
+Host is up (0.15s latency).
+Not shown: 979 closed tcp ports (reset)
+PORT     STATE    SERVICE
+21/tcp   open     ftp
+25/tcp   filtered smtp
+53/tcp   open     domain
+80/tcp   open     http
+110/tcp  open     pop3
+135/tcp  open     msrpc
+139/tcp  filtered netbios-ssn
+143/tcp  open     imap
+443/tcp  open     https
+445/tcp  filtered microsoft-ds
+465/tcp  open     smtps
+587/tcp  open     submission
+993/tcp  open     imaps
+995/tcp  open     pop3s
+2000/tcp open     cisco-sccp
+3306/tcp open     mysql
+3389/tcp open     ms-wbt-server
+5060/tcp open     sip
+8008/tcp open     http
+8010/tcp open     xmpp
+8443/tcp open     https-alt
+
+
+STEP4: NOTICE THE SECOND HOST: 110.34.251.2
+is a DNS server, because port 53 is open:
+
+use nslookup to connect to it.
+
+C:\>nmap -sS -Pn -p 53 --open 110.34.251.2
+PORT   STATE SERVICE
+53/tcp open  domain
+
+Nmap done: 1 IP address (1 host up) scanned in 0.63 seconds
+
+
+STEP5: using "victim" DNS to obtain important information Such as
+where is the WWW server, DNS server, MAIL server, etc...
+we will use NSLOOKUP tool
+
+C:\>nslookup
+Default Server:  dns.google
+Address:  8.8.8.8
+
+> server 110.34.251.2
+Default Server:  tflogisticsph.wsiph2.com
+Address:  110.34.251.2
+
+> set type=CNAME
+> bulsu.edu.ph
+Server:  tflogisticsph.wsiph2.com
+Address:  110.34.251.2
+
+bulsu.edu.ph
+        primary name server = ns1.bulsu.edu.ph
+        responsible mail addr = sysadmin.servobox.com
+        serial  = 60
+        refresh = 900 (15 mins)
+        retry   = 600 (10 mins)
+        expire  = 86400 (1 day)
+        default TTL = 3600 (1 hour)
+>
+>
+> set type=MX
+> bulsu.edu.ph
+Server:  tflogisticsph.wsiph2.com
+Address:  110.34.251.2
+
+Non-authoritative answer:
+bulsu.edu.ph    MX preference = 10, mail exchanger = alt4.aspmx.l.google.com
+bulsu.edu.ph    MX preference = 10, mail exchanger = alt3.aspmx.l.google.com
+bulsu.edu.ph    MX preference = 1, mail exchanger = aspmx.l.google.com
+bulsu.edu.ph    MX preference = 5, mail exchanger = alt1.aspmx.l.google.com
+bulsu.edu.ph    MX preference = 5, mail exchanger = alt2.aspmx.l.google.com
+>
+> set type=A
+> bulsu.edu.ph
+Server:  tflogisticsph.wsiph2.com
+Address:  110.34.251.2
+
+Non-authoritative answer:
+Name:    bulsu.edu.ph
+Address:  110.34.251.12
+
+STEP6: USE THE file transfer protocol: FTP to get some files:
+
+C:\>ftp 66.171.30.229
+please type username:  anonymous   password: secduque@doh.gov.ph
+
+User (66.171.30.229:(none)): anonymous
+331 Anonymous access allowed, send identity (e-mail name) as password.
+Password:
+230 User logged in.
+
+ftp> ls
+200 PORT command successful.
+125 Data connection already open; Transfer starting.
+.folder
+Acronis
+adwcleaner_4.201.exe
+AnyConnect
+ap1g1-k9w7-tar.153-3.JH1
+ap1g1-k9w7-tar.153-3.JH1.tar
+asasfr-sys-6.2.0-362.pkg
+DiskCheck_v1.01.exe
+Firmware
+FixPrinter_v1.01
+FixPrinter_v1.01.exe
+FixTime.zip
+GoWireline-Dicke
+
+ftp> get vpnclient-winx64-msi-5.0.07.0440-k9.exe
+
+DONT download the Viruses!!!!!!!!!
+
+
