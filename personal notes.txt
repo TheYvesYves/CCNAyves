@@ -89,3 +89,16 @@ ping 10.10.10.1
 
 
 
+
+
+task5
+
+en
+conf t
+no logging console
+int gi 2
+ip add dhcp
+no sh
+do sh ip int br
+
+192.168.108.143
