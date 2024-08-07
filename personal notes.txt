@@ -1,0 +1,91 @@
+task2: how to quickly remove static routes
+no ip route 10.11.0.0 255.255.0.0 10.11.11.4
+no ip route 10.12.0.0 255.255.0.0 200.0.0.12
+no ip route 10.21.0.0 255.255.0.0 200.0.0.21
+no ip route 10.22.0.0 255.255.0.0 200.0.0.22
+no ip route 10.31.0.0 255.255.0.0 200.0.0.31
+no ip route 10.41.0.0 255.255.0.0 200.0.0.41
+end
+
+
+router ospf 1
+network 10.11.0.0 0.0.0.255 area 0
+
+
+
+router eigrp 100
+network 10.0.0.0
+
+
+task 3
+redistribution
+combine eigrp and ospf together
+
+conf t
+router ospf 1
+redistribute eigrp 100 subnets
+router eigrp 100
+network 10.0.0.0
+redistribute ospf 1 metric 10000 1 255 10 1500
+end
+
+
+
+
+configuring linux/unix and cisco aws
+
+root
+C1sc0123
+rm -r /etc/udev/rules.d/70(tab)
+reboot
+
+
+ifup eth0
+ifconfig
+192.168.101.128
+
+
+
+
+
+
+
+
+
+
+BGP config:
+router bgp 1
+bgp router-id 1.1.1.1
+bgp log-neighbor-changes
+neighbor 208.8.8.4 remote-as 45
+neighbor 207.7.7.2 remote-as 2
+neighbor 209.9.9.3 remote-as 
+address-family ipv4 1
+network 208.8.8.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 209.9.9.0 mask 255.255.255.0
+network 10.1.1.0 mask 255.255.255.0
+
+
+
+neighbor 208.8.8.4 remote-as 45
+neighbor 207.7.7.2 remote-as 2
+neighbor 209.9.9.3 activate
+
+41207435e0dd14dd5d3f5110b7ba396fd4e14fc91e357b2655189bfd8cdb2c63
+c5b64dfb548285bf136c34198faee7b9a18ef199487a6b505226bd70a42a9c7f
+
+
+
+task4
+
+how to give ip to linux and give gateway
+
+bldgph
+sudo su
+ifconfig eth0 10.10.10.10 mask 255.255.255.0 up
+route add default gw 10.10.10.1
+ping 10.10.10.1
+
+
+
