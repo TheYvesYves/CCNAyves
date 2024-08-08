@@ -600,5 +600,54 @@ tracert -d 8.8.8.8
 
 sh ip nat translations
 
+balik sa wifi kasi bilis:
+route delete 0.0.0.0
+route add 0.0.0.0 mask 0.0.0.0 10.3.3.1 -->mag cisco si windows
+ping 8.8.8.8
+tracert -d 8.8.8.8
+
 5. SNMP
 6. QOS
+
+
+
+ipv6
+bawal:
+::0
+::1
+fc00:
+ff00:
+fe80:
+
+How to configure ipv6
+1. static method
+@edge:
+conf t
+ipv6 unicast-routing
+int gi 0/0/1
+ ipv6 enable
+ 
+
+
+
+cafe:face:fafa:bebe::1234
+
+c0c0:cece:baba:fefe::4321
+
+b1b1:af05:1010:c1c1::3333
+
+16: sexdecuple 6D
+
+
+
+
+task 5 how to subnet ipv6 like a master
+world method: 15 mins
+rivan method (beta version): 3 sec
+
+not CSI
+CAI: Cai daling sagutin
+
+C
+A
+I

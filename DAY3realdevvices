@@ -15,6 +15,11 @@ ping 10.k.k.4                Klassmate did not configure switch routing
 ping 10.k.100.8              Klassmate did not configure routing on CUCM
 ping 10.k.1.10               Klassmate did not configure routing on Windows Server
 
+!HOW TO GET FIRED IMMEDIATELY COMMANDS; Fired on the spot
+config t
+no ip routing
+ip routing
+end
 
 TASK1: STATIC ROUTING: Very Cheap, China is King. Home/End Devices.
 VS DYNAMIC ROUTING.
