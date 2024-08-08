@@ -170,10 +170,9 @@ the Basics for Firewalls.
 before: nmap -v 10.m.100.8
 @Cucm:
 config t
-int Gi 3
+int fa 0/0
  no shut
- ip add 192.168.103.8 255.255.255.0
- ip add 192.168.103.9 255.255.255.0 Secondary
+ ip add 10.11.100.9 255.255.255.0 Secondary
 service finger
 service tcp-small-servers
 service udp-small-servers
@@ -181,17 +180,15 @@ ip dns server
 ip http server
 ip http secure-server
 !Make Ping EASY
-ip host www.web8.com 192.168.103.8
-ip host www.web9.com 192.168.103.9
-ip host pc 10.12.1.10
-ip host cm 10.12.100.8
-ip host cm2 10.12.100.9
-ip host p1 10.12.100.101
-ip host p2 10.12.100.102
-ip host c6 10.12.50.6
-ip host c8 10.12.50.8
-ip host sw 10.12.1.4
-ip host ed 10.12.12.1
+ip host pc 10.11.1.10
+ip host cm 10.11.100.8
+ip host cm2 10.11.100.9
+ip host p1 10.11.100.101
+ip host p2 10.11.100.102
+ip host c6 10.11.50.6
+ip host c8 10.11.50.8
+ip host sw 10.11.1.4
+ip host ed 10.11.11.1
 
 TASK7: Enter the World of BlueTeam: Protect vs Redteam: Attack, 
 BlueTeam: UTM: unified Threat management:
