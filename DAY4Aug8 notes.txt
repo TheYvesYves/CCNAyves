@@ -1,0 +1,604 @@
+task2: how to quickly remove static routes
+no ip route 10.11.0.0 255.255.0.0 10.11.11.4
+no ip route 10.12.0.0 255.255.0.0 200.0.0.12
+no ip route 10.21.0.0 255.255.0.0 200.0.0.21
+no ip route 10.22.0.0 255.255.0.0 200.0.0.22
+no ip route 10.31.0.0 255.255.0.0 200.0.0.31
+no ip route 10.41.0.0 255.255.0.0 200.0.0.41
+end
+
+
+router ospf 1
+network 10.11.0.0 0.0.0.255 area 0
+
+
+
+router eigrp 100
+network 10.0.0.0
+
+
+task 3
+redistribution
+combine eigrp and ospf together
+
+conf t
+router ospf 1
+redistribute eigrp 100 subnets
+router eigrp 100
+network 10.0.0.0
+redistribute ospf 1 metric 10000 1 255 10 1500
+end
+
+
+
+
+configuring linux/unix and cisco aws
+
+root
+C1sc0123
+rm -r /etc/udev/rules.d/70(tab)
+reboot
+
+
+ifup eth0
+ifconfig
+192.168.101.128
+
+
+
+
+
+
+
+
+
+
+BGP config:
+router bgp 1
+bgp router-id 1.1.1.1
+bgp log-neighbor-changes
+neighbor 208.8.8.4 remote-as 45
+neighbor 207.7.7.2 remote-as 2
+neighbor 209.9.9.3 remote-as 
+address-family ipv4 1
+network 208.8.8.0 mask 255.255.255.0
+network 207.7.7.0 mask 255.255.255.0
+network 209.9.9.0 mask 255.255.255.0
+network 10.1.1.0 mask 255.255.255.0
+
+
+
+neighbor 208.8.8.4 remote-as 45
+neighbor 207.7.7.2 remote-as 2
+neighbor 209.9.9.3 activate
+
+41207435e0dd14dd5d3f5110b7ba396fd4e14fc91e357b2655189bfd8cdb2c63
+c5b64dfb548285bf136c34198faee7b9a18ef199487a6b505226bd70a42a9c7f
+
+
+
+task4
+
+how to give ip to linux and give gateway
+
+bldgph
+sudo su
+ifconfig eth0 10.10.10.10 mask 255.255.255.0 up
+route add default gw 10.10.10.1
+ping 10.10.10.1
+
+
+
+
+
+task5
+
+en
+conf t
+no logging console
+int gi 2
+ip add dhcp
+no sh
+do sh ip int br
+
+192.168.108.143
+
+
+
+day 4
+fundamentals of network security
+
+socket=ip + port no
+
+tools to get ip of victims
+nmap -sP 10.21.100.0/24
+
+open ports
+nmap -v <ip>
+
+80 attackable
+telnet 80
+get index.htm
+
+
+ftp ip add (10.21.1.10)
+put virus.exe
+
+check if you have been compromised
+netstat -s -p tcp
+find port 21
+local address
+foreign
+must be local>foreign
+
+firewalls
+how to protect your network
+types of fw:
+1. basic entry: packet filter firewall CCNA, protects l3 and l4
+2. pwede na: application firewall
+3. hayup oh yeah: stateful, ai application level firewall
+
+
+Palo Alto>Checkpoint>Firepower (Cisco)>Fortinet>Juniper
+
+
+
+task 2: deny the ip address
+ww2: axis: japan germany italy
+2024: Russia, China, Nor Korea
+
+packet filter firewall, block ip and port
+sh ip int br
+
+
+ex1 use packet filters using cisco access control list (ACL) to block your other tables
+1-99 standard: perfect for blocking IPs
+100-199 named
+
+@edge:
+conf t
+no access-list 1
+access-list 1 Deny 10.12.0.0 0.0.255.255
+access-list 1 Deny 10.31.0.0 0.0.255.255
+access-list 1 Deny 10.41.0.0 0.0.255.255
+access-list 1 Permit any
+int gi 0/0/1
+ip access-group 1 in
+do sh ip access-list 1
+
+tropa na ulit:
+@edge
+conf t
+
+int gi 0/0/1
+no ip access-group 1 in
+do sh ip access-list 1
+
+
+new friendship:
+conf t
+no access-list 2
+access-list 2 Deny 10.21.0.0 0.0.255.255
+access-list 2 Deny 10.31.0.0 0.0.255.255
+access-list 2 Deny 10.41.0.0 0.0.255.255
+access-list 2 Permit any
+int gi 0/0/1
+ip access-group 2 in
+do sh ip access-list 2
+
+
+int gi 0/0/1
+no ip access-group 2 in
+
+
+
+LAB 3: use the power of permit and deny any
+conf t
+no access-list 3
+access-list 3 Permit 10.12.0.0 0.0.255.255
+
+int gi 0/0/1
+ip access-group 3 in
+do sh ip access-list 3
+
+int gi 0/0/1
+no ip access-group 3 in
+do sh ip access-list 3
+
+
+
+LAB 4:
+conf t
+no access-list 4
+access-list 3 Permit 10.21.0.0 0.0.255.255
+
+int gi 0/0/1
+ip access-group 4 in
+do sh ip access-list 4
+
+
+int gi 0/0/1
+no ip access-group 4 in
+do sh ip access-list 4
+
+
+
+TASK 2: use standard access list to improve your brains
+use ACL to block all porn sites
+
+step 1 give internet access to edge @@EDGE
+config t
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip domain-lookup
+ip name-server 8.8.8.8 1.1.1.1
+do ping www.cisco.com
+
+
+
+block the top porn companies
+@@edge
+conf t
+no access-list 5
+access-list 5 Deny 66.254.0.0 0.0.255.255
+access-list 5 Deny 104.21.0.0 0.0.255.255
+access-list 5 Deny 88.208.0.0 0.0.255.255
+access-list 5 Deny 68.235.0.0 0.0.255.255
+access-list 5 Permit any
+int gi 0/0/1
+ip access-group 5 in
+do sh ip access-list 5
+
+conf t
+int gi 0/0/1
+no ip access-group 5 in
+
+ADVANCED Firewall: blocking ports and apps (extended acl)
+ito lang open dapat"
+8080
+80
+443
+8443
+
+
+TASK5: HOW TO START A CAREER IN NETWORK CYBERSECURITY FOR FREE!!
+intentionally hackable websites
+1. Hack The Box
+2. CTFlearn
+3. bWAPP
+4. HackThisSite
+5. Google Gruyere
+6. Damn Vulnerable iOS App - DVIA
+7. Hellbound Hackers
+8. OWASP Mutillidae II
+9. HackThis!!
+
+
+*attack vector:one of the ways you can be attackedx
+
+
+ctrl sh 6 + x
+
+ex1
+create a firewall policy to meet this
+
+cm: 10.11.100.8 cm2: 10.11.100.9
+cm is a website: http 80 and https 443
+cm2 is dns and ssh server: dns 53,ssh 22
+
+splunk: log
+
+magic formula: PROTOCOL HACKER VICTIM PORT [if needed]:
+
+block
+data: tcp
+voice: udp
+all: ip
+ping: icmp
+
+conf t
+no access-list 100
+access-list 100 permit tcp Any host cm eq 80 log
+access-list 100 permit tcp Any host cm eq 443 log
+access-list 100 permit tcp Any host cm2 eq 53 log
+access-list 100 permit tcp Any host cm2 eq 22 log
+
+int fa 0/0
+ip access-group 100 in
+ do sh ip access-list 100
+
+ayaw ma nmap:
+nmap -Pn -v <ip>
+
+conf t
+int fa 0/0
+ no ip access-group 100 in
+ do sh ip access-list 100
+
+
+
+ex2.
+you are a newly hired cyber analyst, your job is to configure a fW with this conditions, use ACL101
+
+cm will open telnet, ssh,http, cisco-sscp
+cm2 will open dns, http, https, and ssh
+
+data: tcp
+voice: udp
+all: ip
+ping: icmp
+
+conf t
+no access-list 101
+access-list 101 permit tcp Any host cm eq 23 log
+access-list 101 permit tcp Any host cm eq 22 log
+access-list 101 permit tcp Any host cm eq 80 log
+access-list 101 permit tcp Any host cm eq 2000 log
+
+access-list 101 permit tcp Any host cm2 eq 53 log
+access-list 101 permit tcp Any host cm2 eq 80 log
+access-list 101 permit tcp Any host cm2 eq 443 log
+access-list 101 permit tcp Any host cm2 eq 22 log
+
+int fa 0/0
+ip access-group 101 in
+ do sh ip access-list 101
+
+
+int fa 0/0
+no ip access-group 101 in
+
+
+
+ex2.
+you are a newly hired Firewall Admin, your job is to configure a fW with this conditions: conditional
+
+data: tcp
+voice: udp
+all: ip
+ping: icmp
+
+cm is a voip server: h323, sccp, chatproxy, SIP, sip-tls
+cm2 is http,dns,ssh,telnet,https server, must be pingable
+
+conf t
+no access-list 102
+access-list 102 permit tcp Any host cm eq 1720 log
+access-list 102 permit tcp Any host cm eq 2000 log
+access-list 102 permit tcp Any host cm eq 4002 log
+access-list 102 permit tcp Any host cm eq 5060 log
+access-list 102 permit tcp Any host cm eq 5061 log
+
+access-list 102 permit tcp Any host cm2 eq 80 log
+access-list 102 permit tcp Any host cm2 eq 53 log
+access-list 102 permit tcp Any host cm2 eq 22 log
+access-list 102 permit tcp Any host cm2 eq 23 log
+access-list 102 permit tcp Any host cm2 eq 443 log
+access-list 102 permit icmp Any host cm2 log
+
+
+int fa 0/0
+ip access-group 102 in
+ do sh ip access-group 102
+
+
+
+ex.3
+you are a newly hired: Security Admin, with 150k signing bonus, conditional: work in AdonisQC
+
+cm isvoip server: http,https,sccp,SIP,sip-tls,pingable
+cm2 is dns,ssh,telnet,globe,x11
+
+conf t
+no access-list 103
+access-list 103 permit tcp Any host cm eq 80 log
+access-list 103 permit tcp Any host cm eq 443 log
+access-list 103 permit tcp Any host cm eq 2000 log
+access-list 103 permit tcp Any host cm eq 5060 log
+access-list 103 permit tcp Any host cm eq 5061 log
+access-list 103 permit icmp Any host cm log
+
+access-list 103 permit tcp Any host cm2 eq 53 log
+access-list 103 permit tcp Any host cm2 eq 22 log
+access-list 103 permit tcp Any host cm2 eq 23 log
+access-list 103 permit tcp Any host cm2 eq 2002 log
+access-list 103 permit tcp Any host cm2 eq 6002 log
+
+
+int fa 0/0
+ip access-group 103 in
+ do sh ip access-group 103
+
+int fa 0/0
+no ip access-group 103 in
+
+
+TASK 4: Multiple hacker, multiple victim:
+Create a policy to meet these conditions
+
+pc can/allow ping, telnet, ssh cm = 3
+pc can/allow dns, http cm2 = 2
+p1 can/allow sccp cm = 1
+p2 can/allow ping cm = 1
+c6 can http cm         1
+c8 can ping cm         1
+ 
+
+PROTOCOL HACKER VICTIM PORT:
+
+
+conf t
+no access-list 105
+access-list 105 permit icmp host pc host cm
+access-list 105 permit tcp host pc host cm eq 23
+access-list 105 permit tcp host pc host cm eq 22
+access-list 105 permit tcp host pc host cm2 eq 53
+access-list 105 permit tcp host pc host cm2 eq 80
+access-list 105 permit tcp host p1 host cm eq 2000
+access-list 105 permit icmp host p2 host cm
+access-list 105 permit tcp host c6 host cm eq 80
+access-list 105 permit icmp host c8 host cm
+
+int fa 0/0
+ip access-group 105 in
+
+conf t
+int fa 0/0
+no ip access-group 105 in
+
+
+
+
+CONVERT TO NAME ACL FROM NUMBER
+
+
+
+conf t
+no IP access-list Extended POLICY5
+IP access-list Extended POLICY5
+	permit icmp host pc host cm
+	permit tcp host pc host cm eq 23
+	permit tcp host pc host cm eq 22
+	permit tcp host pc host cm2 eq 53
+	permit tcp host pc host cm2 eq 80
+	permit tcp host p1 host cm eq 2000
+	permit icmp host p2 host cm
+	permit tcp host c6 host cm eq 80
+	permit icmp host c8 host cm
+
+int fa 0/0
+no ip access-group POLICY5 in
+do sh ip access-list POLICY5
+
+
+
+
+POLICY6: Multiple hacker, multiple victim:
+Create a policy to meet these conditions
+
+pc can/allow dns, ssh cm
+pc can/allow https cm2
+p1 can/allow ping cm
+p2 can/allow sccp cm
+c6 can ping cm
+c8 can http cm
+
+conf t
+no IP access-list Extended POLICY6
+IP access-list Extended POLICY6
+	
+	permit tcp host pc host cm eq 53
+	permit tcp host pc host cm eq 22
+	permit tcp host pc host cm2 eq 443
+	permit icmp host p1 host cm
+	permit tcp host p2 host cm eq 2000
+	permit icmp host c6 host cm
+	permit tcp host c8 host cm eq 80
+
+int fa 0/0
+ip access-group POLICY6 in
+do sh ip access-list POLICY6
+
+int fa 0/0
+no ip access-group POLICY6 in
+
+
+
+TASK6: CISCO NETWORK SERVICES
+1. FTP/TFTP: File transfer protocol: very important files
+		FTP: port 20/21
+		TFTP: trivial FTP: uses UDP for voice apps
+ftp is tambakan ng files, pambansang USB drive
+d:\TAMBAKDITO
+sh flash:
+
+2. SSH
+Secure Shell Protocol
+Secure your switch with SSH
+highest 15
+lowest 0
+
+@@corebaba
+config t
+username admin privilege 15 secret pass
+username myles privilege 15 secret pass
+username ojt privilege 0 secret pass
+username sakto privilege 7 secret pass
+line vty 0 14
+  login local
+
+enable SSH:
+
+conf t
+ip domain-name rivanit.com
+crypto key generate rsa
+	512->1024
+
+ip ssh version 2
+ip ssh time-out
+
+
+conf t
+ip domain-name rivanit.com
+crypto key generate rsa
+
+ip ssh version 2
+ip ssh time-out 120
+
+
+
+3. NTP: network time protocol
+Windows Server can be an NTP via PowerShell
+
+@make Cisco NTP client of windows
+
+@EDGE, @corebaba, @CM
+
+conf t
+ntp server 10.11.1.10
+end
+
+additional: sh ntp associations
+
+conf t
+clock timezone UTC +8
+
+sh ntp sta
+
+4. NAT
+Network Address Translation
+"pa-hotspot" "pa-wifi" "pa-connect/tether"
+
+
+@EDGE as the NAT proxy server
+conf t
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+do ping 8.8.8.8
+
+step1: how to give internet via ciscoNAT
+1. accesslist
+2. NAT in/out
+3. NAT pool + overload
+
+conf t
+access-list 8 permit 10.11.0.0 0.0.255.255
+int gi 0/0/0
+ ip nat inside
+int gi 0/0/1
+ ip nat outside
+ip nat inside source list 8 interface gi 0/0/1 overload
+end
+
+
+
+wifigamet: tracert -d 8.8.8.8
+in cmd:
+route delete 0.0.0.0
+route add 0.0.0.0 mask 0.0.0.0 10.11.1.4 -->mag cisco si windows
+ping 8.8.8.8
+tracert -d 8.8.8.8
+
+
+sh ip nat translations
+
+5. SNMP
+6. QOS
