@@ -651,3 +651,80 @@ CAI: Cai daling sagutin
 C
 A
 I
+
+
+Aug 9
+
+192.168.101.128
+
+
+
+
+ipv6 reviews
+
+3 method 
+
+
+BABA:BEBE:FAFA:1111:B6A8:B9FF:FEA1:4BE0
+
+
+ex
+
+CAFE:CAFE:CAFE:1111::/64
+450 IS 9 BITS
+/64+/9 = /73
+	8 4 2 1  8 4 2 1  8 |
+	0 0 0 0  0 0 0 0  0  :0000:
+	0 0 0 0  0 0 0 0  1  :0080:
+        0 0 0 0  0 0 0 1  0  :0100:
+        0 0 0 0  0 0 0 1  1  :0180:
+        0 0 0 0  0 0 1 0  0  :0200:
+        0 0 0 0  0 0 1 0  1  :0280:
+
+
+EDGE
+config t
+int lo 1
+ ipv6 address CAFE:CAFE:CAFE:1111:0000::1111/73
+int lo 2
+ ipv6 address CAFE:CAFE:CAFE:1111:0080::1111/73
+int lo 3
+ ipv6 address CAFE:CAFE:CAFE:1111:0100::1111/73
+int lo 4
+ ipv6 address CAFE:CAFE:CAFE:1111:0180::1111/73
+int lo 5
+ ipv6 address CAFE:CAFE:CAFE:1111:0200::1111/73
+int lo 6
+ ipv6 address CAFE:CAFE:CAFE:1111:0280::1111/73
+ do sh ipv6 int br
+
+configure ipv6 OSPF:
+
+@edge
+
+conf t
+ipv6 router ospf 6
+router-id 1.1.1.1
+int gi 0/0/0
+ ipv6 ospf 6 area 0
+int gi 0/0/1
+ ipv6 ospf 6 area 0
+int lo 1
+ ipv6 ospf 6 area 0
+int lo 2
+ ipv6 ospf 6 area 0
+int lo 3
+ ipv6 ospf 6 area 0
+int lo 4
+ ipv6 ospf 6 area 0
+int lo 5
+ ipv6 ospf 6 area 0
+int lo 6
+ ipv6 ospf 6 area 0
+
+
+
+
+switchport trunk vlan allowed 1-100
+
+

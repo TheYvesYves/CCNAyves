@@ -16,10 +16,10 @@ Task1: 5 mins answers:
 
 TASK2: CONFIGURING IPV6 ON CISCO DEVICES:
 method1: Ipv6 autoconfig/autoBwisit
-@p1
+@EDGE:
 config t
 ipv6 unicast-routing
-int Giga 2
+int Giga 0/0/0
  ipv6 enable
  Ipv6 address autoconfig
 
@@ -32,12 +32,12 @@ int e1/0
 
 method2: EUI-64 method: using the MAc Address
 as host.
-@P1
+@EDGE
 config t
 ipv6 unicast-routing
-int giga 2
+int giga 0/0/0
  no shutdown
- ipv6 add baba:bebe:fafa:fafe::/64 EUI-64
+ ipv6 add baba:bebe:fafa:1111::/64 EUI-64
  do sh ipv6 int brief
 end
 
@@ -51,11 +51,11 @@ int e1/0
 end
 
 Method3: STatic IPv6 address manual: IKAW LAHAT 
-@p1
+@EDGE
 config t
 ipv6 unicast-routing
-int giga 2
- ipv6 add BEBE:FACE:ABCD:BABA::EEEE/64
+int giga 0/0/1
+ ipv6 add BEBE:FACE:ABCD:BABA::1111/64
  do sh ipv6 int brief
 end
 
@@ -150,7 +150,7 @@ Top 5 brands:
 4.Juniper/Fortinet
 5.Huawei      =
 
-sh spanning-tree vlan 1
+sh spanning-tree vlan 1 (sstv)
 
 TASK3: EXPENSIVE SWITCH/MANAGEABLE SWITCH:\ = 20k
 1. mac address learning": sh mac address-table
@@ -218,6 +218,7 @@ Int Range fa0/10-12
  no shutdown
  switchport trunk Encap Dot1Q
  switchport mode trunk
+ switchport trunk allowed vlan 1-100
  do sh int trunk
 Dot1q = Qupid,mave switches love each other:
       IEEE standard where SW will from Layer 2 trunks
@@ -285,7 +286,7 @@ end
 #sh int status err-disabled 
 TAAS: bounce/UP/down, bring BACK TO LIFE.
 config t
-int fa 0/3
+int fa 0/1
  shut
  no shut
 int fa 0/7
@@ -356,7 +357,7 @@ spanning-tree mst 1 root primary
 spanning-tree mst 2 root Secondary
 spanning-tree mst 3 root primary
 
-TASK15: Implementing Port-Security in Cisco/bawal Nakaw/bawalPalit.
+TASK15: Implementing Port-Security in Cisco/bawal Nakaw/bawalPalit. (make a story out of this)
 Switch:
 baba:
 sh cdp nei
@@ -412,7 +413,7 @@ config t
 hostname PLDTITO
 Track 1 Int gi 0/1 line-protocol
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.11.1.6
 standby 1 preempt
 standby 1 Priority 150
 standby 1 Track 1 decrement 60
@@ -430,7 +431,7 @@ COREBABA/GLOBE:
 config t
 hostname GLOBEITO
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.11.1.6
 standby 1 preempt
 standby 1 Priority 100
 
@@ -464,7 +465,7 @@ VRRP 10 Priority 100
 
 TASK17: Port-Aggregation/Etherchannel:
 LACP:LINK AGGREGATION CONTROL PROTOCOL = ieee worldStandrad
-cisco = PortAggregationProtocl: PaGP
+cisco = PortAggregationProtocl: PaGP:released 1998 this is a lab
 Combinding Two/More Layer 2 links AS ONE! Unite/UNITY
 @taas/BABA:
 config t
