@@ -335,4 +335,53 @@ trustwave.COM
 
 
 
+[correct:
+config t
+vlan 25
+ name PEOPLESOFT.COM
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.2.1 255.255.254.0
+ip dhcp excluded-add 10.0.2.1 10.0.2.120
+ip dhcp pool PEOPLESOFT.COM
+ network 10.0.2.0 255.255.254.0
+ default-router 10.0.2.1
+ domain-name PEOPLESOFT.COM
+ dns-server 10.11.1.10
+ option 150 ip 10.11.100.8
+ Int Fa 0/5
+  swi voice vlan 25
+  do sh ip dhcp binding
+  
+  TemPlate_CoreSW:
+config t
+vlan 25
+ name COCACOLA.COM
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.64.1 255.255.192.0
+ip dhcp excluded-add 10.0.64.1 10.0.64.120
+ip dhcp pool COCACOLA.COM
+ network 10.0.64.0 255.255.192.0
+ default-router 10.0.64.1
+ domain-name COCACOLA.COM
+ dns-server 10.11.1.10
+ option 150 ip 10.11.100.8
+ Int Fa 0/5
+  swi voice vlan 25
+  do sh ip dhcp binding
+  
+  
+  50.6.160.47
 
+nmap -sP 50.6.160.0/24
+
+nmap -sP 202.125.102.0/24
+
+Nmap scan report for admupayroll.ateneo.edu (202.125.102.229)
+Host is up (0.010s latency).
+202.125.102.229
+
+nmap -v 202.125.102.229]

@@ -5,13 +5,13 @@ TASK1: Cisco Security Fundamentals.
 cmd
 ping 10.k.1.10
 
-c>nmap -sP 10.m.1.0/24    c>nmap -sP 10.m.100.0/24
+c>nmap -sP 10.k.1.0/24    c>nmap -sP 10.k.100.0/24
 10.m.1.10?                   10.m.100.8
 TASK2: How to begin hacking Layer 3:
 HOw get all the IP address of your victim:
 
 nmap -v 10.k.1.10        nmap -v 10.k.100.8
-is 139/445 open?
+is 139/445/21 open?          is 23,53,2000 open ?
 
 how to attack 139/445? because you DONT have a firewall!
 
@@ -19,7 +19,56 @@ net  use  \\10.k.1.10\ipc$  "attacks 139, and connects to it."
 "privilege escalation"
 net  use  s: \\10.k.1.10\c$  /user:administrator
 
+SERVICES VS PORTS:
+WEB SERVER RUNS ON PORT 80, IF YOUR CLASSMATE PORT 80 OPEN? IT IS A WEB SERVER!
+LEARN TO RUN A CORPORATE WEBSITE:
+powershell
+New-Website -name "wtf1" -hostheader "www.ngcpM.ph" -physicalPath "d:\webs\datingbiz" -force
+
+CMD
+ping www.ngcpM.ph
+
+
 net  use  s: \\10.k.1.10\c$
+TASK1: PROTECT YOUR MOST IMPORTANT BUSINESS ASSET:
+PROTECT YOUR PEOPLE/IT STAFF VS HARM. USE THE POWER
+OF CISCO ACCESS-LIST TO BLOCK ALL THE PORNSITES INT WORLD.
+FROM ENTERING YOUR NETWORK. 
+step1: give Unlimited internet to EDGE:
+@edge
+CONFIG T
+IP ROUTE 0.0.0.0  0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+ALL THE PORN SITES THE WORLD ARE OWNED BY 5 COMPANIES:
+
+config t
+NO ip access-list standard NOPORN1
+ip access-list standard NOPORN1
+DENY 66.254.0.0 0.0.255.255
+DENY 104.21.0.0 0.0.255.255
+DENY 68.235.0.0 0.0.255.255
+DENY 104.17.0.0 0.0.255.255
+DENY 88.208.0.0 0.0.255.255
+Permit Any
+Int Gi 0/0/1
+ ip access-group NOPORN1 in
+ end
+
+TASK2: USE STANDARD ACCESS-LIST TO BLOCK OTHER CONTRIES/CLASSMATE:
+config t
+NO ip access-list standard NOCOL1
+ip access-list standard NOCOL1
+DENY 10.11.0.0 0.0.255.255
+DENY 10.21.0.0 0.0.255.255
+DENY 10.31.0.0 0.0.255.255
+DENY 10.41.0.0 0.0.255.255
+DENY 10.51.0.0 0.0.255.255
+DENY 10.61.0.0 0.0.255.255
+Permit Any
+Int Gi 0/0/1
+ ip access-group NOCOL1 in
+ end
 
 TASK3: When you become a Security Analyst:
 Learn to Block the IPaddress from 3 "BAD" countries:
@@ -122,7 +171,8 @@ before: nmap -v 10.m.100.8
 @Cucm:
 config t
 int fa 0/0
- ip add 10.m.100.9 255.255.255.0 Secondary
+ no shut
+ ip add 10.11.100.9 255.255.255.0 Secondary
 service finger
 service tcp-small-servers
 service udp-small-servers
@@ -130,13 +180,15 @@ ip dns server
 ip http server
 ip http secure-server
 !Make Ping EASY
-ip host pc 10.m.1.10
-ip host cm 10.m.100.8
-ip host cm2 10.m.100.9
-ip host p1 10.m.100.101
-ip host p2 10.m.100.102
-ip host sw 10.m.1.4
-ip host ed 10.m.m.1
+ip host pc 10.11.1.10
+ip host cm 10.11.100.8
+ip host cm2 10.11.100.9
+ip host p1 10.11.100.101
+ip host p2 10.11.100.102
+ip host c6 10.11.50.6
+ip host c8 10.11.50.8
+ip host sw 10.11.1.4
+ip host ed 10.11.11.1
 
 TASK7: Enter the World of BlueTeam: Protect vs Redteam: Attack, 
 BlueTeam: UTM: unified Threat management:
@@ -149,6 +201,133 @@ Top 5 UTM: 1.FortinetFortigate:
            1.1: Palo Alto:superSuplado
            2. Checkpoint
            3.4 Cisco
+
+CYBERSECURITY TASK7: PROTECTING YOUR CORPORATE WEB APPS.
+EX.1 CREATE A FIREWALL POLICY NAMED PROWEBAPP1 TO OPEN
+WWW.WEB8.COM HAS HTTP AND HTTPS AS OPEN
+WWW.WEB9.COM HAS SSH AND DNS OPEN
+formula:       PROTOCOL    HACKER    VICTIM     PORT:
+config t
+no ip access-list extended PROWEBAPP1
+ip access-list extended PROWEBAPP1
+Permit tcp any host www.web8.com eq 80 log
+Permit tcp any host www.web8.com eq 443 log
+Permit tcp any host www.web9.com eq 22 log
+Permit tcp any  host www.web9.com eq 53 log
+Interface Gi 3
+ ip access-group PROWEBAPP1 in
+ do sh ip access-list PROWEBAPP1
+
+EX.2 CREATE A FIREWALL POLICY NAMED PROWEBAPP2 TO OPEN
+WWW.WEB8.COM HAS HTTPS AS OPEN
+WWW.WEB9.COM HAS HTTPS OPEN
+formula:       PROTOCOL    HACKER    VICTIM     PORT:
+config t
+no ip access-list extended PROWEBAPP2
+ip access-list extended PROWEBAPP2
+Permit tcp any host www.web8.com eq ___ log
+Permit tcp any host www.web9.com eq ___ log
+Interface Gi 3
+ ip access-group PROWEBAPP2 in
+ do sh ip access-list PROWEBAPP1
+
+EX.4 CREATE A FIREWALL POLICY NAMED PROWEBAPP4 TO OPEN
+WWW.WEB8.COM HAS ping, dns, https OPEN
+WWW.WEB9.COM HAS everything OPEN!
+config t
+no ip access-list extended PROWEBAPP4
+ip access-list extended PROWEBAPP4
+Permit icmp any host www.web8.com
+Permit tcp any host www.web8.com eq 53
+Permit tcp any host www.web8.com eq 443
+Permit IP any host www.web9.com
+Interface Gi 3
+ ip access-group PROWEBAPP4 in
+ do sh ip access-list PROWEBAPP4
+
+EX.5 CREATE A FIREWALL POLICY NAMED LASTFWP TO OPEN
+WWW.WEB8.COM HAS ping, chargen, finger, http as Open
+WWW.WEB9.COM HAS ssh, telnet, daytime, dns, https as Open:
+if you canNOT make the Policy, you work in Jollibee.
+config t
+Interface Gi 3
+ NO ip access-group LASTFWP in
+
+TASK8: CONFIGURING CISCO NETWORK SERVICES:
+NETWORK TIME PROTOCOL OR NTP 
+is a layer 7 protocol using UDP 123
+configure your VPNPH to use time.google.com servers in USA:
+config t
+ntp server 216.239.35.8
+end
+show ntp associations
+
+TASK9: NAT: NETWORK ADDRESS TRANSLATION SERVICE:
+nat, proxy, hotspot, tethering, = PENGE INTERNET
+Give Internet to your Entire building USING CISCO:
+STEP1: define INSIDE AND OUTSIDE:
+STEP2: create Access-list to permit IP of Inside:
+STEP3: create a NAT pool with overload
+@vpnPH:
+config t
+int gi 1
+ip nat OUTSIDE
+int gi 2
+ip nat INSIDE
+int gi 3
+ip nat INSIDE
+no access-list 7
+access-list 7 permit 192.168.102.0 0.0.0.255
+access-list 7 permit 192.168.103.0 0.0.0.255
+ip nat inside source list 7 interface Gi 1 overload
+ip nat inside source static 192.168.102.69 192.168.108.69
+ip nat inside source static 192.168.103.88 192.168.108.88
+end
+
+TASK10: DO YOU HAVE TO REPLACED BY A.I AT WORK? REPLACED BY
+YOUNGER, SMARTER, CHEAPER NEW HIRES?? HOW TO BE UNTOUCHABLE EMPLOYEE?
+IF YOU WANT HAYUP/SIX DIGITS SWELDO/untouchable status.
+you need HAYUP/SIX DIGITS SWELDO Habits.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 TASK8: CONGigure YOur first Packet Filter Firewall.
  FORMULA: "  Protocol    hacker   victim  Port "
@@ -188,16 +367,16 @@ IP access-list Extended fwpolicy1
   end
 
 ex.2: Make a Firewall so that we can meet this fwpolicy2:
-cm is a ssh,cucm/sccp,web
-cm2 is secureWEB, 23, dns
+cm is a ssh,https,web
+cm2 is https, 23, dns
 create a fwpolicy2 Policy to meet his condition.
 
-nmap -v cm       nmap -v cm2
-22               443
-2000             23
-80               53
+nmap -Pn -v cm       nmap Pn -v cm2
+22                      443
+443                    23
+80                      53
 
-ex.2: Make a Firewall so that we can meet this fwpolicy3:
+ex3: Make a Firewall so that we can meet this fwpolicy3:
 cm is a ping,cucm/sccp,
 cm2 is  ssh,web,dns,finger
 create a fwpolicy3 Policy to meet his condition.
