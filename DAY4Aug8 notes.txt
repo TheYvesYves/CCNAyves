@@ -727,4 +727,13 @@ int lo 6
 
 switchport trunk vlan allowed 1-100
 
+lis
+lrn
+fwd
 
+
+
+cd desktop
+cd folder
+
+https://drive.google.com/drive/u/1/folders/1X97d51QwKcr7-gXuM7RjRRHm4htfKl7Y
