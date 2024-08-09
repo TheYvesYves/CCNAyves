@@ -5,25 +5,7 @@ r1 to r4: ospf 1:
 config t
  no router ospf 1
  do sh ip protocols
-###### give IP address/pri/secondary default GW to S1 and S2:
-@@S1
-config t
-int e1/0
- no shut
- ip add 192.168.1.133 255.255.255.224
- do bp
- ip route 0.0.0.0 0.0.0.0 192.168.1.129 1
- ip route 0.0.0.0 0.0.0.0 192.168.1.130 2
- do sh ip route static
-@@S2
-config t
-int e1/0
- no shut
- ip add 10.2.2.133 255.255.255.0
- do bp
- ip route 0.0.0.0 0.0.0.0 10.2.2.2 1
- ip route 0.0.0.0 0.0.0.0 10.2.2.1 2
- do sh ip route static
+
 R4
 config t
  no router eigrp 100
@@ -36,12 +18,6 @@ ip dhcp excluded-add 10.2.1.200 10.2.1.254
 ip dhcp pool vlan10
   network 10.2.1.0 255.255.255.0
   default-router 10.2.1.254
-!#ipasok d1 port e1/0 sa vlan 200
-config t
-int e1/0
-   switchport mode access
-   switchport access vlan 200
-   do show vlan brief
 !
 D2:
 CONFIG T
@@ -52,58 +28,32 @@ ip dhcp pool vlan10
   network 10.2.1.0 255.255.255.0
   default-router 10.2.1.254
 !
-!#ipasok D2 port e1/0 sa vlan 20
-config t
-int e1/0
-   switchport mode access
-   switchport access vlan 20
-   do show vlan brief
 A1: lipat vlan from v1 to v10
 config t
 int e0/0
  switchport mode access
  switchport access vlan 10
-A1: creating Default route and Secondary Default Route:
-config t
-ip route 0.0.0.0 0.0.0.0 192.168.1.129 1
-ip route 0.0.0.0 0.0.0.0 192.168.1.130 2
-do sh ip route static
 A2:
 config t
 int e1/0
  switchport mode access
  switchport access vlan 10
-A2: creating primary and backup default route:
-config t
-ip route 0.0.0.0 0.0.0.0 192.168.1.130 1
-ip route 0.0.0.0 0.0.0.0 192.168.1.129 2
-do sh ip route static
 p1:
 config t
 int e0/0
- ip add 10.2.1.101 255.255.255.0
+ ip add dhcp
  no shut
-P1: Creating STATIC routes on p1 for vlan 200 and vlan 20:
-config t
-ip route  192.168.1.128 255.255.255.224 10.2.1.1 1
-ip route  192.168.1.130 255.255.255.255 10.2.1.2
-do sh ip route static
 p2:
 config t
 int e1/0
- ip add 10.2.1.102 255.255.255.0
+ ip add dhcp
  no shut
-P2: create static route for vlan 200 and a 
-longest prefix rule for 192.168.1.129 GATEWAY of 10.2.1.1
-config t
-ip route  192.168.1.128 255.255.255.224 10.2.1.2
-ip route  192.168.1.129 255.255.255.255 10.2.1.1
-do sh ip route static
+
 Pano mag static Route sa PC:
 cmd
 route  add 10.m.0.0 mask 255.255.0.0 10.m.1.4 -p
 
-How to Create Default Route Cisco/PC/EndDevices:
+How to StaticRoute Cisco/PC/EndDevices:
 p1:
 config T
 ip route 0.0.0.0  0.0.0.0 10.2.1.1
@@ -185,6 +135,7 @@ Int loopback 0
 router ospf 1
 router-id 3.3.3.3
 network 3.3.3.3 0.0.0.0 area 0
+router ospf 1
 network 10.1.1.4 0.0.0.3 area 0
 network 10.1.1.8 0.0.0.3 area 34
 
@@ -195,6 +146,7 @@ Int loopback 0
 router ospf 1
 router-id 2.2.2.2
 network 2.2.2.2 0.0.0.0 area 0
+router ospf 1
 network 10.1.1.4 0.0.0.3 area 0
 network 10.1.1.0 0.0.0.3 area 12
 
@@ -205,6 +157,7 @@ Int loopback 0
 router ospf 1
 router-id 1.1.1.1
 network 1.1.1.1 0.0.0.0 area 12
+router ospf 1
 network 10.1.1.0 0.0.0.3 area 12
 
 OSPF checking:
@@ -230,10 +183,10 @@ router bgp 1
  neighbor 208.8.8.4 remote-as 45
  neighbor 207.7.7.2 remote-as 2
  neighbor 209.9.9.3 remote-as 3
- network 10.1.1.0 Mask 255.255.255.252
- network 207.7.7.0 mask 255.255.255.0
- network 208.8.8.0 mask 255.255.255.0
- network 209.9.9.0 mask 255.255.255.0
+ network 10.0.0.0 Mask 255.255.255.252
+ network 207.7.7.0
+ network 208.8.8.0
+ network 209.9.9.0
 end
 @@@ISP1:
 CONFIG T
